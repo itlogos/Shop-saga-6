@@ -1,0 +1,85 @@
+{
+  "realm": "shop",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "frontend",
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "http://localhost:5173/*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    },
+    {
+      "clientId": "api-gateway",
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "bearerOnly": true
+    }
+  ],
+  "roles": {
+    "realm": {
+      "roles": [
+        {
+          "name": "ROLE_ADMIN"
+        },
+        {
+          "name": "ROLE_CUSTOMER"
+        }
+      ]
+    }
+  },
+  "users": [
+    {
+      "username": "admin1",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin1"
+        }
+      ],
+      "realmRoles": [
+        "ROLE_ADMIN"
+      ],
+      "groups": [
+        "admins"
+      ]
+    },
+    {
+      "username": "customer1",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "customer1"
+        }
+      ],
+      "realmRoles": [
+        "ROLE_CUSTOMER"
+      ],
+      "groups": [
+        "customers"
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "name": "admins",
+      "realmRoles": [
+        "ROLE_ADMIN"
+      ]
+    },
+    {
+      "name": "customers",
+      "realmRoles": [
+        "ROLE_CUSTOMER"
+      ]
+    }
+  ]
+}
