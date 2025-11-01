@@ -8,8 +8,8 @@ spring:
       port: ${SPRING_REDIS_PORT:6379}
   cloud:
     gateway:
-      default-filters:
-        - TokenRelay
+      #      default-filters:
+      #        - TokenRelay
       routes:
         - id: store
           uri: http://store-service:8081
@@ -34,9 +34,12 @@ spring:
           filters:
             - StripPrefix=1
 
-security:
-  oauth2:
-    resourceserver:
-      jwt:
-        issuer-uri: ${OAUTH_ISSUER_URI:http://localhost:8085/realms/shop}
-        jwk-set-uri: ${OAUTH_JWK_SET_URI:http://localhost:8085/realms/shop/protocol/openid-connect/certs}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH_ISSUER_URI:http://keycloak:8080/realms/shop}
+          jwk-set-uri: ${OAUTH_JWK_SET_URI:http://keycloak:8080/realms/shop/protocol/openid-connect/certs}
+
+app:
+  securityDisabled: ${SECURITY_DISABLED:false}

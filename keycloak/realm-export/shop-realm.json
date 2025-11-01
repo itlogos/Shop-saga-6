@@ -1,85 +1,117 @@
 {
   "realm": "shop",
   "enabled": true,
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "rememberMe": true,
+  "verifyEmail": false,
+  "attributes": {
+    "frontendUrl": "http://localhost:8085"
+  },
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Administrator role"
+      },
+      {
+        "name": "CUSTOMER",
+        "description": "Customer role"
+      }
+    ]
+  },
   "clients": [
     {
       "clientId": "frontend",
+      "name": "frontend",
+      "enabled": true,
       "publicClient": true,
+      "protocol": "openid-connect",
       "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "bearerOnly": false,
+      "rootUrl": "",
+      "baseUrl": "",
       "redirectUris": [
-        "http://localhost:5173/*"
+        "*"
       ],
       "webOrigins": [
         "*"
-      ]
+      ],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      }
     },
     {
-      "clientId": "api-gateway",
-      "publicClient": false,
+      "clientId": "svc-gateway",
+      "name": "svc-gateway",
+      "enabled": true,
       "protocol": "openid-connect",
-      "bearerOnly": true
+      "publicClient": false,
+      "bearerOnly": false,
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": false,
+      "fullScopeAllowed": false,
+      "redirectUris": [],
+      "webOrigins": [],
+      "secret": "s3cr3t-svc-gateway"
     }
   ],
-  "roles": {
-    "realm": {
-      "roles": [
-        {
-          "name": "ROLE_ADMIN"
-        },
-        {
-          "name": "ROLE_CUSTOMER"
-        }
-      ]
-    }
-  },
   "users": [
     {
       "username": "admin1",
       "enabled": true,
       "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "One",
+      "email": "admin1@example.com",
+      "realmRoles": [
+        "ADMIN"
+      ],
       "credentials": [
         {
           "type": "password",
-          "value": "admin1"
+          "value": "admin1",
+          "temporary": false
         }
-      ],
-      "realmRoles": [
-        "ROLE_ADMIN"
-      ],
-      "groups": [
-        "admins"
       ]
     },
     {
       "username": "customer1",
       "enabled": true,
       "emailVerified": true,
+      "firstName": "Customer",
+      "lastName": "One",
+      "email": "customer1@example.com",
+      "realmRoles": [
+        "CUSTOMER"
+      ],
       "credentials": [
         {
           "type": "password",
-          "value": "customer1"
+          "value": "customer1",
+          "temporary": false
         }
-      ],
-      "realmRoles": [
-        "ROLE_CUSTOMER"
-      ],
-      "groups": [
-        "customers"
-      ]
-    }
-  ],
-  "groups": [
-    {
-      "name": "admins",
-      "realmRoles": [
-        "ROLE_ADMIN"
       ]
     },
     {
-      "name": "customers",
+      "username": "service-account-svc-gateway",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Service",
+      "lastName": "Account",
       "realmRoles": [
-        "ROLE_CUSTOMER"
-      ]
+        "ADMIN"
+      ],
+      "credentials": []
     }
   ]
 }

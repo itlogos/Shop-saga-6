@@ -2,7 +2,7 @@ server:
   port: ${SERVER_PORT:8081}
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/storedb}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/storedb}
     username: ${SPRING_DATASOURCE_USERNAME:store}
     password: ${SPRING_DATASOURCE_PASSWORD:store}
   jpa:
@@ -11,21 +11,18 @@ spring:
     open-in-view: false
   data:
     redis:
-      host: ${SPRING_REDIS_HOST:localhost}
+      host: ${SPRING_REDIS_HOST:redis}
       port: ${SPRING_REDIS_PORT:6379}
-security:
-  oauth2:
-    resourceserver:
-      jwt:
-        issuer-uri: ${OAUTH_ISSUER_URI:http://localhost:8085/realms/shop}
-        jwk-set-uri: ${OAUTH_JWK_SET_URI:http://localhost:8085/realms/shop/protocol/openid-connect/certs}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH_ISSUER_URI:http://keycloak:8080/realms/shop}
+          jwk-set-uri: ${OAUTH_JWK_SET_URI:http://keycloak:8080/realms/shop/protocol/openid-connect/certs}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
 app:
   securityDisabled: ${SECURITY_DISABLED:false}
-
-flyway:
-  enabled: true
-  locations: classpath:db/migration
-
-spring:
-  kafka:
-    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:29092}

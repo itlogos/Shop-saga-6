@@ -11,17 +11,16 @@ spring:
     open-in-view: false
   kafka:
     bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
-security:
-  oauth2:
-    resourceserver:
-      jwt:
-        issuer-uri: ${OAUTH_ISSUER_URI:http://localhost:8085/realms/shop}
-        jwk-set-uri: ${OAUTH_JWK_SET_URI:http://localhost:8085/realms/shop/protocol/openid-connect/certs}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH_ISSUER_URI:http://keycloak:8080/realms/shop}
+          jwk-set-uri: ${OAUTH_JWK_SET_URI:http://keycloak:8080/realms/shop/protocol/openid-connect/certs}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 app:
   seedOrder: ${SEED_ORDER:false}
   securityDisabled: ${SECURITY_DISABLED:false}
   storeUrl: ${STORE_SERVICE_URL:http://localhost:8081}
-
-flyway:
-  enabled: true
-  locations: classpath:db/migration

@@ -6,9 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Embeddable @Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Embeddable
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OrderItem {
-  private Long productId;
-  private Integer quantity;
-  private Double price;
+    private Long productId;
+    private Integer quantity;
+    private Double price;
 }
